@@ -55,9 +55,14 @@ public class RoomSpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("RoomSpawnPoint") && other.GetComponent<RoomSpawner>().spawned == true)
+        if(other.CompareTag("RoomSpawnPoint"))
         {
-            Destroy(gameObject);
+            if(other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            {
+                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+            spawned = true;
         }
     }
 }
